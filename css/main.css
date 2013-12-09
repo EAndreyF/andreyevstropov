@@ -1,0 +1,27 @@
+
+body {
+    font-size: 10px;
+    font-family: Tahoma, sans-serif;
+}
+
+.body__background {
+    position: absolute;
+    height: 4em;
+    background-image:linear-gradient(to bottom, #ccc, #eee);
+    width: 100%;
+    top: 0px;
+}
+
+.body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #eee;
+}
+
+.header {
+    position: relative;
+}
+
+.blockquote__cite:before {
+    content:'- ';
+}
