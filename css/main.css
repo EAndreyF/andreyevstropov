@@ -20,8 +20,57 @@ body {
 
 .header {
     position: relative;
+    width:100em;
+    margin:5em auto;
 }
 
 .blockquote__cite:before {
     content:'- ';
+}
+
+.header__phases {
+    margin:0 0 0 auto;
+    width:60em;
+    height:13em;
+    text-align:right;
+    overflow:hidden;
+    position:relative;
+}
+
+.blockquote {
+    display:none;
+    font-size:1.5em;
+    color:#555;
+    text-shadow:#ccc 0.1em 0.1em;
+    margin-bottom:2em;
+}
+
+.header__nav {
+    border-top:0.1em solid #ccc;
+    border-bottom:0.1em solid #ccc;
+    padding:2em 0;
+    text-align:center;
+}
+
+.nav {
+    text-shadow:#ccc 0.2em 0.2em;
+    display:inline-block;
+    margin:0 1em;
+}
+
+.nav__a, .nav__cur {
+    font-size:3em;
+    text-decoration:none;
+}
+
+.nav__a {
+    color:#00aee8;
+}
+
+.nav__a:hover {
+    color:#0099cc;
+}
+
+.nav__cur {
+    color:#666;    
 }
