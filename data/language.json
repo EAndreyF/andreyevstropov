@@ -1,0 +1,71 @@
+{
+    "en": {
+        "all": {
+            "home": "Home",
+            "contacts": "Contacts",
+            "russian": false
+        },
+        "index": {
+            "title": "Evstropov Andrey &mdash; JavaScript developer",
+            "head": {
+                "home_page": true,
+                "page": "index"
+            },
+            "content": {
+                "title": "Evstropov Andrey &mdash; JavaScript developer",
+                "intro": "Hello, I'm web sites front-end developer.",
+                "skillsName": "Skilled in",
+                "skills": [
+                    "Interactivity",
+                    "Adaptability",
+                    "Performance"
+                ]
+            }
+        },
+        "contact": {
+            "title": "Evstropov Andrey. Contacts",
+            "head": {
+                "contact_page": true,
+                "page": "contact"
+            },
+            "content": {
+                "contact": "Contact me",
+                "text": "Send email"
+            }
+        }
+    },
+    "ru": {
+        "all": {
+            "home": "Главная",
+            "contacts": "Контакты",
+            "russian": true
+        },
+        "index": {
+            "head": {
+                "home_page": true,
+                "page": "index"
+            },
+            "content": {
+                "title": "Евстропов Андрей &mdash; JavaScript разработчик",
+                "intro": "Я специализируюсь на разработке клиентской части веб приложений, так называемый <strong>front-end developer</strong>.",
+                "skillsName": "Разбираюсь в вопросах",
+                "skills": [
+                    "Интерактивности",
+                    "Адаптивности",
+                    "Производительности"
+                ]
+            }
+        },
+        "contact": {
+            "title": "Андрей Евстропов. Контакты",
+            "head": {
+                "contact_page": true,
+                "page": "contact"
+            },
+            "content": {
+                "contact": "Свяжись со мной",
+                "text": "С предложениями и пожеланиями направляй письмо"
+            }
+        }
+    }
+}

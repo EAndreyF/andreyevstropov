@@ -40,6 +40,29 @@ body {
     position:relative;
 }
 
+.header__languages {
+    position: absolute;
+    top:0;
+}
+
+.header__languages ul {
+    list-style: none outside none;
+    margin:0;
+    padding:0;
+}
+
+.header__languages li {
+    float: left;
+}
+
+.header__languages a {
+    opacity: 0.5;
+}
+
+.header__languages img {
+    width: 4em;
+}
+
 .blockquote {
     display:none;
     font-size:1.5em;
@@ -98,6 +121,16 @@ main h1 {
 
 main p, main ol, main header {
     font-size: 1.5em;
+    list-style: none outside none;
+    margin: 0.3em 0;
+    padding: 0;
+}
+
+main li {
+    border: 1px solid #000000;
+    float: left;
+    margin: 0.2em;
+    padding: 0.5em;
 }
 
 main p {

@@ -1,15 +1,32 @@
 $(function () {
     'use strict';
     $.when($.getJSON('data/phases.json'),
+           $.getJSON('data/language.json'),
            $.ajax({ url: 't/main.html'}),
-           $.getScript('js/handlebars.min.js')).done(function (dataJSON, dataTemplate) {
+           $.getScript('js/handlebars.min.js')).done(function (dataJSON, languageJSON, dataTemplate) {
         
         $('head').append(dataTemplate[0]);
         
-        var $phases = $('.header__phases'),
-            template   = Handlebars.compile($("#phases_template").html());
+        var $main = $('body'),
+            pathSplit = location.pathname.split('/'),
+            page = pathSplit[pathSplit.length - 1].slice(0, -5) || 'index',
+            templateHead = Handlebars.compile($("#head_template").html()),
+            templateMain = Handlebars.compile($("#"+ page + "_template").html()),
+            path = location.pathname.split('/')[2], // need change to 1
+            lang = path.length === 2 ? path : 'ru',
+            templatePhases = Handlebars.compile($("#phases_template").html()),
+            all = languageJSON[0][lang].all,
+            data = languageJSON[0][lang][page];
+    
+        $main.append(templateHead($.extend({}, data.head, all)));
+        $main.append(templateMain(data.content));
+        
+        $('head title').html(data.content.title);
+        
+        var $phases = $('.header__phases');
+        
         dataJSON[0].forEach(function (element) {
-            $phases.append(template(element));
+            $phases.append(templatePhases(element));
         });
         $phases.slide();
     }).fail(function () {
@@ -17,8 +34,7 @@ $(function () {
     });
 
     $.fn.slide = function () {
-        var $this = $(this),
-            $child = $('.blockquote', this),
+        var $child = $('.blockquote', this),
             count = $child.length;
         
         function getRandom() {

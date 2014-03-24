@@ -8,3 +8,151 @@
         </cite>
     </blockquote>
 </script>
+<script id="head_template" type="text/x-handlebars-template">
+    <div class='body__background'></div>
+    <header class='header'>
+        <div class='header__phases'>
+        </div>
+        <div class='header__languages'>
+            <ul>
+                {{#if russian}}
+                    <li><span><img src='i/russian.png' title='русский' /></span></li>
+                    <li><a href='en/{{page}}.html'><img src='i/english.png' title='english' /></a></li>
+                {{else}}
+                    <li><a href='../{{page}}.html'><img src='i/russian.png' title='русский' /></a></li>
+                    <li><span><img src='i/english.png' title='english' /><span></li>
+                {{/if}}
+            </ul>
+        </div>
+        <nav class='header__nav'>
+            <div class='nav'>
+                {{#if home_page}}
+                    <span class='nav__cur'>{{home}}</span>
+                {{else}}
+                    <a href='./' class='nav__a'>{{home}}</a>
+                {{/if}}
+            </div>
+            <div class='nav'>
+                {{#if contact_page}}
+                    <span class='nav__cur'>{{contacts}}</span>
+                {{else}}
+                    <a href='contact.html' class='nav__a'>{{contacts}}</a>
+                {{/if}}
+            <div class='nav'>
+        </nav>
+    </header>
+</script>
+<script id='index_template' type="text/x-handlebars-template">
+    <main class="columns">
+        <h1>{{title}}</h1>
+        <p>{{intro}}</p>
+        <section>
+            <header>
+                {{skillsName}}:
+            </header>
+            <ol>
+                {{#each skills}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ol>
+        </section>
+        <section>
+            <header>
+                Front-end:
+            </header>
+            <ol>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>BOM</li>
+                <li>DOM</li>
+                <li>ECMAScript 5</li>
+                <li>jQuery</li>
+                <li>Backbone</li>
+                <li>RESTful</li>
+            </ol>
+        </section>
+        <section>
+            <header>
+                TDD:
+            </header>
+            <ol>
+                <li>QUnit</li>
+                <li>Jasmine</li>
+            </ol>
+        </section>
+        <section>
+            <header>
+                Agile:
+            </header>
+            <ol>
+                <li>XP</li>
+                <li>Scrum</li>
+                <li>KISS</li>
+                <li>DRY</li>
+            </ol>
+        </section>
+        <section>
+            <header>
+                Templating:
+            </header>
+            <ol>
+                <li>XSLT</li>
+                <li>Handlebars</li>
+                <li>Underscore</li>
+            </ol>
+        </section>
+        <section>
+            <header>
+                VCS:
+            </header>
+            <ol>
+                <li>GitHub</li>
+                <li>Bitbucket</li>
+            </ol>
+        </section>
+        <section>
+            <header>
+                Back-end:
+            </header>
+            <ol>
+                <li>PHP</li>
+                <li>Python</li>
+            </ol>
+        </section>
+        <section>
+            <header>
+                Datebase:
+            </header>
+            <ol>
+                <li>MySQL</li>
+                <li>Oracle</li>
+                <li>MS SQL</li>
+            </ol>
+        </section>
+        <section>
+            <header>
+                Bugtracker:
+            </header>
+            <ol>
+                <li>JIRA</li>
+                <li>Bugzilla</li>
+                <li>Redmine</li>
+            </ol>
+        </section>
+        <div class="clear"></div>
+        <a href="https://plus.google.com/+AndreyEvstropov?rel=author">Google+</a>
+    </main>
+</script>
+<script id='contact_template' type="text/x-handlebars-template">
+    <main>
+        <h1>{{contact}}!</h1>
+        <p>{{text}}: <a href="mailto:andrey.evstropov@gmail.com">andrey.evstropov@gmail.com</a></p>
+        <section class="picture_link">
+            <a href="http://www.linkedin.com/in/eandreyf"><img src="i/linkedin.png" title="linkedin.com/in/eandreyf" /></a>
+            <a href="https://github.com/EAndreyF"><img src="i/github.png" title="github.com/EAndreyF" /></a>
+            <a href="https://www.facebook.com/EAndreyF"><img src="i/facebook.png" title="facebook.com/EAndreyF" /></a>
+            <a href="skype:EAndreyF"><img src="i/skype.png" title="EAndreyF" /></a>
+            <a href="tel:+79040504517"><img src="i/phone.png" title="+7-904-050-45-17" /></a>
+        </section>
+    </main>
+</script>
