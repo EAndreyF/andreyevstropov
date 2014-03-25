@@ -12,7 +12,7 @@ $(function () {
             page = pathSplit[pathSplit.length - 1].slice(0, -5) || 'index',
             templateHead = Handlebars.compile($("#head_template").html()),
             templateMain = Handlebars.compile($("#"+ page + "_template").html()),
-            path = location.pathname.split('/')[2], // need change to 1
+            path = location.pathname.split('/')[1], // need change to 1
             lang = path.length === 2 ? path : 'ru',
             templatePhases = Handlebars.compile($("#phases_template").html()),
             all = languageJSON[0][lang].all,

@@ -1,3 +1,3 @@
-#Исходные коды моего личного сайта
+#Personal website
 
-Сайт доступен по адресу: <a href='http://andreyevstropov.com/'>andreyevstropov.com</a>
+Available: <a href='http://andreyevstropov.com/'>andreyevstropov.com</a>
