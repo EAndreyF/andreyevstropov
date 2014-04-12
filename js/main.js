@@ -14,7 +14,9 @@ $(function () {
             languageJSON = arguments[1];
             dataTemplate = arguments[2];
             $('head').append(dataTemplate[0]);
-            render();
+            if (!$('body main').length) { 
+                render();
+            }
         }).fail(function () {
             console.log(arguments);
         });
