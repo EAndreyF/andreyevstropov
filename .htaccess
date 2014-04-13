@@ -4,4 +4,5 @@ RewriteEngine On
 #RewriteRule ^(.*)en/([^/]*)$ $1index.html [L]
 #RewriteRule ^(.*)en/(.*)$ $1$2 [L]
 #RewriteRule ^(.*)/(.*)$ $1/$2 [L]
+RewriteRule ^(public/(.*))$ $1 [L]
 RewriteRule ^(.*)$ index.html

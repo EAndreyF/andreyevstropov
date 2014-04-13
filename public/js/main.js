@@ -4,12 +4,12 @@ $(function () {
         languageJSON,
         dataTemplate;
 
-    $.when($.getJSON('data/phases.json'),
-        $.getJSON('data/language.json'),
+    $.when($.getJSON('/public/data/phases.json'),
+        $.getJSON('/public/data/language.json'),
         $.ajax({
-            url: 't/main.html'
+            url: '/public/t/main.html'
         }),
-        $.getScript('js/handlebars.min.js')).done(function() {
+        $.getScript('/public/js/handlebars.min.js')).done(function() {
             dataJSON = arguments[0];
             languageJSON = arguments[1];
             dataTemplate = arguments[2];
