@@ -3,15 +3,13 @@
     var dataJSON,
         languageJSON,
         dataTemplate,
-        node = false,
-        $,
-        window;
+        node = false;
 
     function main(context) {
-        window = context;
-        $ = window.$;
+        var window = context,
+            $ = window.$,
 
-        var dfd = $.Deferred(),
+            dfd = $.Deferred(),
             prefix = 'http://andreyevstropov.com',
             $phases = $('.header__phases');
 
@@ -28,6 +26,15 @@
                 });
                 return dfd;
             };
+        } else {
+            $('body').on('click', 'a', function(e) {
+                e.preventDefault();
+                var href = this.href;
+                window.history.pushState('', '', this.href);
+                render();
+            });
+
+            window.onpopstate = render;
         }
 
         $.when($.getJSON(prefix + '/public/data/phases.json'),
@@ -71,51 +78,43 @@
                 }
             }, 15000);
         };
+
+        function render(not_empty) {
+            var path = node ? window.location.url : window.location.pathname,
+                $main = not_empty ? $('body') : $('body').empty(),
+                pathSplit = path.split('/'),
+                page = pathSplit[pathSplit.length - 1].slice(0, -5) || 'index',
+                templateHead = window.Handlebars.compile($("#head_template").html()),
+                templateMain = window.Handlebars.compile($("#" + page + "_template").html()),
+                lang = pathSplit[1].length === 2 ? pathSplit[1] : 'ru',
+                templatePhases = window.Handlebars.compile($("#phases_template").html()),
+                all = languageJSON[0][lang].all,
+                data = languageJSON[0][lang][page],
+                $phases;
+
+            $main.append(templateHead($.extend({}, data.head, all)));
+            $main.append(templateMain(data.content));
+            $phases = $('.header__phases');
+
+            $('head title').html(data.content.title);
+
+            dataJSON[0].forEach(function (element) {
+                $phases.append(templatePhases(element));
+            });
+            !node && !not_empty && $phases.slide();
+        }
         
         $phases.length && $phases.slide();
 
         return dfd;
     }
 
-    function render(not_empty) {
-        var path = node ? window.location.url : window.location.pathname,
-            $main = not_empty ? $('body') : $('body').empty(),
-            pathSplit = path.split('/'),
-            page = pathSplit[pathSplit.length - 1].slice(0, -5) || 'index',
-            templateHead = window.Handlebars.compile($("#head_template").html()),
-            templateMain = window.Handlebars.compile($("#" + page + "_template").html()),
-            lang = pathSplit[1].length === 2 ? pathSplit[1] : 'ru',
-            templatePhases = window.Handlebars.compile($("#phases_template").html()),
-            all = languageJSON[0][lang].all,
-            data = languageJSON[0][lang][page],
-            $phases;
-
-        $main.append(templateHead($.extend({}, data.head, all)));
-        $main.append(templateMain(data.content));
-        $phases = $('.header__phases');
-
-        $('head title').html(data.content.title);
-
-        dataJSON[0].forEach(function (element) {
-            $phases.append(templatePhases(element));
-        });
-        !node && !not_empty && $phases.slide();
-    }
-
-    if (exports) {
+    try {
         exports.main = main;
         node = true;
-    } else {
+    } catch (e) {
         $(function () {
             main(window);
-            $('body').on('click', 'a', function(e) {
-                e.preventDefault();
-                var href = this.href;
-                window.history.pushState('', '', this.href);
-                render();
-            });
-
-            window.onpopstate = render;
         });
     }
 })();
