@@ -2,32 +2,51 @@
 /**
  * Module dependencies.
  */
+(function() {
+    var express = require('express'),
+        http = require('http'),
+        fs = require('fs'),
+        log = require('./libs/log')(module),
+        jsdom = require('jsdom'),
+        Handlebars = require('handlebars'),
 
-var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
-var http = require('http');
-var path = require('path');
+        html = fs.readFileSync('./index.html', 'utf-8'),
+        js = require("./public/js/main.js"),
 
-var app = express();
+        app = express();
 
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+    // all environments
+    app.set('port', 3000);
+    app.use(app.router);
 
-// development only
-app.use(express.errorHandler());
+    // development only
+    app.use(express.errorHandler());
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+    app.get(/.*/, function(req, res) {
+        var url = req.url;
+        log.info(url);
+        jsdom.env({
+          html: html,
+          done: function (errors, window) {
+            window.location.url = url;
+            window.Handlebars = Handlebars;
+            var $ = require('jquery')(window),
+                XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+            $.support.cors = true;
+            $.ajaxSettings.xhr = function () {
+                return new XMLHttpRequest;
+            };
+            
+            js.main(window).then(function() {
+                res.send(window.document.documentElement.outerHTML);
+                log.info('loaded end');
+            });
+          }
+        });
+    });
+
+    http.createServer(app).listen(app.get('port'), function(){
+      console.log('Express server listening on port ' + app.get('port'));
+    });
+})();
