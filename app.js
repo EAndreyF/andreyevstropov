@@ -24,10 +24,11 @@
     app.use(express.errorHandler());
 
     app.get(/.*/, function(req, res) {
-        var url = req.url;
+        var url = req.url.toString();
+        log.info(new Date().toJSON());
         log.info(url);
-        if (cache.url) {
-            res.send(cache.url);
+        if (cache[url]) {
+            res.send(cache[url]);
         } else {
             jsdom.env({
               html: html,
@@ -44,7 +45,7 @@
 
                 js.main(window).then(function() {
                     res.send(window.document.documentElement.outerHTML);
-                    cache.url = window.document.documentElement.outerHTML;
+                    cache[url] = window.document.documentElement.outerHTML;
                     log.info('loaded end');
                 });
               }
