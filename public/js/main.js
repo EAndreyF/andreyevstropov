@@ -21,7 +21,11 @@
                 $.ajax({
                     url: url,
                     success: function(data) {
-                        dfd.resolve([JSON.parse(data)]);
+                        if (typeof data === 'string') {
+                            dfd.resolve([JSON.parse(data)]);
+                        } else {
+                            dfd.resolve([data]);
+                        }
                     }
                 });
                 return dfd;
