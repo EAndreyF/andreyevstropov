@@ -10,8 +10,8 @@
             $ = window.$,
 
             dfd = $.Deferred(),
-//            prefix = 'http://andreyevstropov.com',
-            prefix = 'http://localhost:3002',
+            prefix = 'http://andreyevstropov.com',
+//            prefix = 'http://localhost:3002',
             $phases = $('.header__phases');
 
         $.ajaxSettings.cache = true;
