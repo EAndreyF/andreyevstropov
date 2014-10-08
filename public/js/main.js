@@ -10,7 +10,8 @@
             $ = window.$,
 
             dfd = $.Deferred(),
-            prefix = 'http://andreyevstropov.com',
+//            prefix = 'http://andreyevstropov.com',
+            prefix = 'http://localhost:3002',
             $phases = $('.header__phases');
 
         $.ajaxSettings.cache = true;
@@ -32,19 +33,21 @@
             };
         } else {
             $('body').on('click', 'a', function(e) {
-                e.preventDefault();
                 var href = this.href;
-                window.history.pushState('', '', this.href);
-                render();
+                if (href.indexOf(prefix) !== -1) {
+                  e.preventDefault();
+                  window.history.pushState('', '', this.href);
+                  render();
+                }
             });
 
             window.onpopstate = render;
         }
 
-        $.when($.getJSON(prefix + '/public/data/phases.json'),
-            $.getJSON(prefix + '/public/data/language.json'),
+        $.when($.getJSON(prefix + '/data/phases.json'),
+            $.getJSON(prefix + '/data/language.json'),
             $.ajax({
-                url: prefix + '/public/t/main.html'
+                url: prefix + '/t/main.html'
             })).done(function() {
                 dataJSON = arguments[0];
                 languageJSON = arguments[1];
@@ -88,8 +91,8 @@
                 $main = not_empty ? $('body') : $('body').empty(),
                 pathSplit = path.split('/'),
                 page = pathSplit[pathSplit.length - 1].slice(0, -5) || 'index',
-                templateHead = window.Handlebars.compile($("#head_template").html()),
-                templateMain = window.Handlebars.compile($("#" + page + "_template").html()),
+                templateHead = window.Handlebars.compile($("#head_template").html());
+            var templateMain = window.Handlebars.compile($("#" + page + "_template").html()),
                 lang = pathSplit[1].length === 2 ? pathSplit[1] : 'ru',
                 templatePhases = window.Handlebars.compile($("#phases_template").html()),
                 all = languageJSON[0][lang].all,

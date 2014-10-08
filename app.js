@@ -1,59 +1,19 @@
+var express = require('express');
+var path = require('path');
+var favicon = require('static-favicon');
+var log = require('./libs/log')(module);
 
-/**
- * Module dependencies.
- */
-(function() {
-    var express = require('express'),
-        http = require('http'),
-        fs = require('fs'),
-        log = require('./libs/log')(module),
-        jsdom = require('jsdom'),
-        Handlebars = require('handlebars'),
+var routes = require('./routes/index');
 
-        html = fs.readFileSync('./index.html', 'utf-8'),
-        js = require("./public/js/main.js"),
+var app = express();
 
-        app = express(),
-        cache = {};
+app.use(favicon());
+app.use(express.static(path.join(__dirname, 'public')));
 
-    // all environments
-    app.set('port', 3000);
-    app.use(app.router);
+app.use('/', routes);
 
-    // development only
-    app.use(express.errorHandler());
+app.set('port', process.env.PORT || 3002);
 
-    app.get(/.*/, function(req, res) {
-        var url = req.url.toString();
-        log.info(new Date().toJSON());
-        log.info(url);
-        if (cache[url]) {
-            res.send(cache[url]);
-        } else {
-            jsdom.env({
-              html: html,
-              done: function (errors, window) {
-                window.location.url = url;
-                window.Handlebars = Handlebars;
-                var $ = require('jquery')(window),
-                    XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-
-                $.support.cors = true;
-                $.ajaxSettings.xhr = function () {
-                    return new XMLHttpRequest;
-                };
-
-                js.main(window).then(function() {
-                    res.send(window.document.documentElement.outerHTML);
-                    cache[url] = window.document.documentElement.outerHTML;
-                    log.info('loaded end');
-                });
-              }
-            });
-        }
-    });
-
-    http.createServer(app).listen(app.get('port'), function(){
-      console.log('Express server listening on port ' + app.get('port'));
-    });
-})();
+var server = app.listen(app.get('port'), function() {
+  log.info('Express server listening on port ' + server.address().port);
+});
